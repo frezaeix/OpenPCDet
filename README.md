@@ -5,7 +5,7 @@ Explaining different components of OpenPCDet based on its design pattern
 **Related classes:**
 1. Point Feature Encoding (PFE). VoxelSetAbstraction(nn.Module):
  *  It contains StackSAModuleMSG(nn.Module) modules.
-3. Voxel Feature Encoding (VFE)
+2. Voxel Feature Encoding (VFE)
 
 ## Backbone 2D
 **Related classes: **
