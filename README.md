@@ -8,7 +8,8 @@ Based on the image:
 
 0- datasets
 
-    a. DataProcessor(object): transform_points_to_voxels using class VoxelGeneratorV2: important output=batch_dict['voxels']
+    a. DataProcessor(object): 
+    transform_points_to_voxels using class VoxelGeneratorV2: important output=batch_dict['voxels']
     [How does transform_points_to_voxels work?](../blob/master/pcdet/datasets/processor/data_processor.py#L105)
     
 
