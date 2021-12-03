@@ -8,12 +8,10 @@ Explaining different components of OpenPCDet based on its design pattern
 2. Voxel Feature Encoding (VFE)
 
 ## Backbone 2D
-**Related classes: **
+**Related classes:**
 1. Map to BEV: HeightCompression(nn.Module)
 2. Map to BEV: PointPillarScatter(nn.Module)
 3. BaseBEVBackbone(nn.Module)
-
-* Related papers:
 
 ## Dense Head
 **Related classes:**
