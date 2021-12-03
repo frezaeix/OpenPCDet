@@ -2,19 +2,13 @@
 Explaining different components of OpenPCDet based on its design pattern
 
 ## Backbone 3D
-* Goal: 
-
-* Related classes:
+**Related classes:**
 1. Point Feature Encoding (PFE). VoxelSetAbstraction(nn.Module):
  *  It contains StackSAModuleMSG(nn.Module) modules.
 3. Voxel Feature Encoding (VFE)
 
-* Related papers:
-
 ## Backbone 2D
-* Goal:
- 
-* Related classes: 
+**Related classes: **
 1. Map to BEV: HeightCompression(nn.Module)
 2. Map to BEV: PointPillarScatter(nn.Module)
 3. BaseBEVBackbone(nn.Module)
@@ -22,8 +16,7 @@ Explaining different components of OpenPCDet based on its design pattern
 * Related papers:
 
 ## Dense Head
-Goal:
-Related classes:
+**Related classes:**
 1. AnchorHeadTemplate(nn.Module)
 * __init__(self, model_cfg, num_class, class_names, grid_size, point_cloud_range, predict_boxes_when_training)
   **Example for model_cfg for pvrcnn:**
@@ -63,8 +56,7 @@ Related classes:
 Related papers:
 
 ## ROI Head
-Goal:
-Related classes:
+**Related classes:**
 1. RoIHeadTemplate(nn.Module)
 **Tasks**
 a. Create a target assigner or in fact ProposalTargetLayer(roi_sampler_cfg=self.model_cfg.TARGET_CONFIG)
@@ -84,17 +76,15 @@ a. self.roi_grid_pool_layer = pointnet2_stack_modules.StackSAModuleMSG(
 4. SECONDHead(RoIHeadTemplate)
 
 
-Related papers:
-
 ## Other modules
 
 ### PointNet2 modules
-* Related Classes: 
+**Related Classes: **
 1. StackSAModuleMSG(nn.Module)
 __init__(self, *, radii: List[float], nsamples: List[int], mlps: List[List[int]],
                  use_xyz: bool = True, pool_method='max_pool')
 
-* PointNet2 Utils: 
+**PointNet2 Utils:** 
 1. BallQuery(Function)
 2. GroupingOperation(Function)
 3. QueryAndGroup(nn.Module)
