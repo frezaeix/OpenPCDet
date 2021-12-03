@@ -1,4 +1,38 @@
-# My own Readme, explaining different components of OpenPCDet based on its design pattern
+# My own Readme 
+
+Explaining different components of OpenPCDet based on its design pattern
+
+## Backbone 3D
+* Goal: 
+
+* Related classes:
+1. Point Feature Encoding (PFE)
+  1.1
+  
+3. Voxel Feature Encoding (VFE)
+
+* Related papers:
+
+## Backbone 2D
+* Goal: Map to BEV
+ 
+* Related classes: 
+1.HeightCompression(nn.Module)
+2.
+
+* Related papers:
+
+## Dense Head
+Goal:
+Related classes:
+Related papers:
+
+## ROI Head
+Goal:
+Related classes:
+Related papers:
+
+
 
 # Original Readme by the authors of OpenPCDet
 
