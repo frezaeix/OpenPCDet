@@ -7,8 +7,7 @@ Explaining different components of OpenPCDet based on its design pattern
 
 * Related classes:
 1. Point Feature Encoding (PFE)
-  
-  1.1
+ 1. 
   
 3. Voxel Feature Encoding (VFE)
 
