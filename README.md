@@ -9,7 +9,7 @@ Based on the image:
 0- datasets
 
     a. DataProcessor(object): transform_points_to_voxels using class VoxelGeneratorV2: important output=batch_dict['voxels']
-    (How does transform_points_to_voxels work?)[https://github.com/frezaeix/OpenPCDet/blob/master/pcdet/datasets/processor/data_processor.py#L105]
+    [How does transform_points_to_voxels work?](../blob/master/pcdet/datasets/processor/data_processor.py#L105)
     
 
 1- MeanVFE().forward: Normalizing voxels using mean
