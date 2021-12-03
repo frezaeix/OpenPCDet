@@ -7,6 +7,7 @@ Explaining different components of OpenPCDet based on its design pattern
 Based on the image:
 
 0- datasets
+
 a. DataProcessor(object): transform_points_to_voxels using VoxelGeneratorV2 class: important output = batch_dict['voxels'].
 * [How does transform_points_to_voxels work?](../master/pcdet/datasets/processor/data_processor.py#L105)
 
