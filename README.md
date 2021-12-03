@@ -57,10 +57,9 @@ Explaining different components of OpenPCDet based on its design pattern
 5. AnchorHeadMulti(AnchorHeadTemplate)
 
 6. PointHeadTemplate(nn.Module):
+    **Tasks**
   
-  **Tasks**
-  
-  a.build_losses(self.model_cfg.LOSS_CONFIG)
+    a. build_losses(self.model_cfg.LOSS_CONFIG)
 
 
 ## ROI Head
