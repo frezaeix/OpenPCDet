@@ -21,6 +21,10 @@ a. DataProcessor(object): transform_points_to_voxels using VoxelGeneratorV2 clas
 
 2- VoxelBackBone8x: take voxel features and return encoded_spconv_tensor:
 ``` 
+   # for detection head
+        # [200, 176, 5] -> [200, 176, 2]
+        out = self.conv_out(x_conv4)
+        
    batch_dict.update({
             'encoded_spconv_tensor': out,
             'encoded_spconv_tensor_stride': 8
