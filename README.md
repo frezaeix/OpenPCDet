@@ -67,25 +67,25 @@ Explaining different components of OpenPCDet based on its design pattern
 **Related classes:**
 1. RoIHeadTemplate(nn.Module)
 
-  **Tasks**
+    **Tasks**
   
-  a. Create a target assigner or in fact ProposalTargetLayer(roi_sampler_cfg=self.model_cfg.TARGET_CONFIG)
+    a. Create a target assigner or in fact ProposalTargetLayer(roi_sampler_cfg=self.model_cfg.TARGET_CONFIG)
   
-  b. build_losses(self.model_cfg.LOSS_CONFIG)
+    b. build_losses(self.model_cfg.LOSS_CONFIG)
 
 2. PartA2FCHead(RoIHeadTemplate)
 
 3. PVRCNNHead(RoIHeadTemplate)
 
-  **Tasks**
+    **Tasks**
   
-  a. self.roi_grid_pool_layer = pointnet2_stack_modules.StackSAModuleMSG(
+    a. self.roi_grid_pool_layer = pointnet2_stack_modules.StackSAModuleMSG(
             radii=self.model_cfg.ROI_GRID_POOL.POOL_RADIUS,
             nsamples=self.model_cfg.ROI_GRID_POOL.NSAMPLE,
             mlps=mlps,
             use_xyz=True,
             pool_method=self.model_cfg.ROI_GRID_POOL.POOL_METHOD,
-        )
+       )
         
 4. SECONDHead(RoIHeadTemplate)
 
