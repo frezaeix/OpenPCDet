@@ -25,17 +25,65 @@ Explaining different components of OpenPCDet based on its design pattern
 Goal:
 Related classes:
 1. AnchorHeadTemplate(nn.Module)
-2. AnchorHeadSingle(AnchorHeadTemplate)
-3. PointIntraPartOffsetHead(PointHeadTemplate)
-4. PointHeadSimple(PointHeadTemplate)
-5. AnchorHeadMulti(AnchorHeadTemplate)
-6. PointHeadTemplate(nn.Module)
-7. 
+* __init__(self, model_cfg, num_class, class_names, grid_size, point_cloud_range, predict_boxes_when_training)
+  **Example for model_cfg for pvrcnn:**
+  {'NAME': 'AnchorHeadSingle', 'CLASS_AGNOSTIC': False, 'USE_DIRECTION_CLASSIFIER': True, 'DIR_OFFSET': 0.78539, 'DIR_LIMIT_OFFSET': 0.0, 'NUM_DIR_BINS': 2,  
+   'ANCHOR_GENERATOR_CONFIG': [{'class_name': 'car', 'anchor_sizes': [[4.2, 2.0, 1.6]], 'anchor_rotations': [0, 1.57], 'anchor_bottom_heights': [0],     
+                                'align_center': False, 'feature_map_stride': 8, 'matched_threshold': 0.55, 'unmatched_threshold': 0.4}], 
+    'TARGET_ASSIGNER_CONFIG': {'NAME': 'AxisAlignedTargetAssigner', 'POS_FRACTION': -1.0, 'SAMPLE_SIZE': 512, 'NORM_BY_NUM_EXAMPLES': False, 
+                               'MATCH_HEIGHT':  False, 'BOX_CODER': 'ResidualCoder'}, 
+    'LOSS_CONFIG': {'LOSS_WEIGHTS': {'cls_weight': 1.0, 'loc_weight': 2.0, 'dir_weight': 0.2, 'code_weights': [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]}}
+  } # End of example
+  **Example for predict_boxes_when_training for pvrcnn:**
+  {'NAME': 'PVRCNNHead', 'CLASS_AGNOSTIC': True, 'SHARED_FC': [256, 256], 'CLS_FC': [256, 256], 'REG_FC': [256, 256], 'DP_RATIO': 0.3, '
+   NMS_CONFIG': {'TRAIN': {'NMS_TYPE': 'nms_gpu', 'MULTI_CLASSES_NMS': False, 'NMS_PRE_MAXSIZE': 9000, 'NMS_POST_MAXSIZE': 512, 'NMS_THRESH': 0.8}, 
+                  'TEST': {'NMS_TYPE': 'nms_gpu', 'MULTI_CLASSES_NMS': False, 'NMS_PRE_MAXSIZE': 1024, 'NMS_POST_MAXSIZE': 100, 'NMS_THRESH': 0.7}},          
+  'ROI_GRID_POOL': {'GRID_SIZE': 6, 'MLPS': [[64, 64], [64, 64]], 'POOL_RADIUS': [0.8, 1.6], 'NSAMPLE': [16, 16], 'POOL_METHOD': 'max_pool'}, 
+  'TARGET_CONFIG': {'BOX_CODER': 'ResidualCoder', 'ROI_PER_IMAGE': 128, 'FG_RATIO': 0.5, 'SAMPLE_ROI_BY_EACH_CLASS': True, 'CLS_SCORE_TYPE': 'raw_roi_iou',   
+                    'CLS_FG_THRESH': 0.75, 'CLS_BG_THRESH': 0.25, 'CLS_BG_THRESH_LO': 0.1, 'HARD_BG_RATIO': 0.8, 'REG_FG_THRESH': 0.55}, 
+    'LOSS_CONFIG': {'CLS_LOSS': 'BinaryCrossEntropy', 'REG_LOSS': 'smooth-l1', 'CORNER_LOSS_REGULARIZATION': True, 
+   'LOSS_WEIGHTS': {'rcnn_cls_weight': 1.0,  'rcnn_reg_weight': 1.0, 'rcnn_corner_weight': 1.0, 'code_weights': [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]}}
+  } # End of example
+  **Tasks**
+  a. Generate anchors
+  b. Create target_assigner (AxisAlignedTargetAssigner or ATSSTargetAssigner-> Reference: https://arxiv.org/abs/1912.02424)
+  c. build_losses
+  
+3. AnchorHeadSingle(AnchorHeadTemplate)
+4. PointIntraPartOffsetHead(PointHeadTemplate): 
+ 
+
+6. PointHeadSimple(PointHeadTemplate): A simple point-based segmentation head, which are used for PV-RCNN keypoint segmentaion.
+    Reference Paper: https://arxiv.org/abs/1912.13192
+    PV-RCNN: Point-Voxel Feature Set Abstraction for 3D Object Detection.
+    
+7. AnchorHeadMulti(AnchorHeadTemplate)
+8. PointHeadTemplate(nn.Module)
+9. 
 Related papers:
 
 ## ROI Head
 Goal:
 Related classes:
+1. RoIHeadTemplate(nn.Module)
+**Tasks**
+a. Create a target assigner or in fact ProposalTargetLayer(roi_sampler_cfg=self.model_cfg.TARGET_CONFIG)
+b. build_losses(self.model_cfg.LOSS_CONFIG)
+
+3. PartA2FCHead(RoIHeadTemplate)
+4. PVRCNNHead(RoIHeadTemplate)
+**Tasks**
+a. self.roi_grid_pool_layer = pointnet2_stack_modules.StackSAModuleMSG(
+            radii=self.model_cfg.ROI_GRID_POOL.POOL_RADIUS,
+            nsamples=self.model_cfg.ROI_GRID_POOL.NSAMPLE,
+            mlps=mlps,
+            use_xyz=True,
+            pool_method=self.model_cfg.ROI_GRID_POOL.POOL_METHOD,
+        )
+        
+4. SECONDHead(RoIHeadTemplate)
+
+
 Related papers:
 
 ## Other modules
@@ -43,6 +91,8 @@ Related papers:
 ### PointNet2 modules
 * Related Classes: 
 1. StackSAModuleMSG(nn.Module)
+__init__(self, *, radii: List[float], nsamples: List[int], mlps: List[List[int]],
+                 use_xyz: bool = True, pool_method='max_pool')
 
 * PointNet2 Utils: 
 1. BallQuery(Function)
