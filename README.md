@@ -5,7 +5,16 @@ Explaining different components of OpenPCDet based on its design pattern
 ![image](https://user-images.githubusercontent.com/13063395/144646058-f0db013f-9391-4ba5-8b88-c2f3397a3910.png)
 
 Based on the image:
-1-
+
+0- datasets
+
+    a. DataProcessor(object): transform_points_to_voxels using class VoxelGeneratorV2: important output=batch_dict['voxels']
+    [How does transform_points_to_voxels work?](https://github.com/frezaeix/OpenPCDet/blob/master/pcdet/datasets/processor/data_processor.py#L105)
+    
+
+1- MeanVFE().forward: Normalizing voxels using mean
+
+2-
 
 ## Backbone 3D
 **Related classes:**
