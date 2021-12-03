@@ -10,11 +10,28 @@ Based on the image:
 
 a. DataProcessor(object): transform_points_to_voxels using VoxelGeneratorV2 class: important output = batch_dict['voxels'].
 * [How does transform_points_to_voxels work?](../master/pcdet/datasets/processor/data_processor.py#L105)
+* grid_size = (self.point_cloud_range[3:6] - self.point_cloud_range[0:3]) / np.array(config.VOXEL_SIZE)
+* points_to_voxel's outputs:
+    * voxels: [M, max_points, ndim] float tensor. only contain points.
+    * coordinates: [M, 3] int32 tensor. zyx format.
+    * num_points_per_voxel: [M] int32 tensor.
 
 
-1- MeanVFE().forward: Normalizing voxels using mean
+1- MeanVFE().forward: Clamp and compute mean of points in each voxel-> voxel_features
 
-2-
+2- VoxelBackBone8x: take voxel features and return encoded_spconv_tensor:
+    * batch_dict.update({
+            'encoded_spconv_tensor': out,
+            'encoded_spconv_tensor_stride': 8
+        })
+        batch_dict.update({
+            'multi_scale_3d_features': {
+                'x_conv1': x_conv1,
+                'x_conv2': x_conv2,
+                'x_conv3': x_conv3,
+                'x_conv4': x_conv4,
+            }
+        })
 
 ## Backbone 3D
 **Related classes:**
