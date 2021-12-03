@@ -1,29 +1,36 @@
 # My Own Readme 
-
 Explaining different components of OpenPCDet based on its design pattern
 
 ## Backbone 3D
 * Goal: 
 
 * Related classes:
-1. Point Feature Encoding (PFE)
- *  
+1. Point Feature Encoding (PFE). VoxelSetAbstraction(nn.Module):
+ *  It contains StackSAModuleMSG(nn.Module) modules.
 3. Voxel Feature Encoding (VFE)
 
 * Related papers:
 
 ## Backbone 2D
-* Goal: Map to BEV
+* Goal:
  
 * Related classes: 
-1.HeightCompression(nn.Module)
-2.
+1. Map to BEV: HeightCompression(nn.Module)
+2. Map to BEV: PointPillarScatter(nn.Module)
+3. BaseBEVBackbone(nn.Module)
 
 * Related papers:
 
 ## Dense Head
 Goal:
 Related classes:
+1. AnchorHeadTemplate(nn.Module)
+2. AnchorHeadSingle(AnchorHeadTemplate)
+3. PointIntraPartOffsetHead(PointHeadTemplate)
+4. PointHeadSimple(PointHeadTemplate)
+5. AnchorHeadMulti(AnchorHeadTemplate)
+6. PointHeadTemplate(nn.Module)
+7. 
 Related papers:
 
 ## ROI Head
@@ -31,7 +38,17 @@ Goal:
 Related classes:
 Related papers:
 
+## Other modules
 
+### PointNet2 modules
+* Related Classes: 
+1. StackSAModuleMSG(nn.Module)
+
+* PointNet2 Utils: 
+1. BallQuery(Function)
+2. GroupingOperation(Function)
+3. QueryAndGroup(nn.Module)
+4. FurthestPointSampling(Function)
 
 # Original Readme by the authors of OpenPCDet
 
