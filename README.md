@@ -1,6 +1,12 @@
 # My Own Readme 
 Explaining different components of OpenPCDet based on its design pattern
 
+# PV-RCNN
+![image](https://user-images.githubusercontent.com/13063395/144646058-f0db013f-9391-4ba5-8b88-c2f3397a3910.png)
+
+Based on the image:
+1-
+
 ## Backbone 3D
 **Related classes:**
 1. Point Feature Encoding (PFE). VoxelSetAbstraction(nn.Module):
