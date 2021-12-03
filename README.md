@@ -39,8 +39,11 @@ Explaining different components of OpenPCDet based on its design pattern
   } # End of example
   
   **Tasks**
+  
   a. Generate anchors
+  
   b. Create target_assigner (AxisAlignedTargetAssigner or ATSSTargetAssigner-> Reference: https://arxiv.org/abs/1912.02424)
+  
   c. build_losses
   
 3. AnchorHeadSingle(AnchorHeadTemplate)
@@ -60,16 +63,19 @@ Related papers:
 **Related classes:**
 1. RoIHeadTemplate(nn.Module)
 
-**Tasks**
-a. Create a target assigner or in fact ProposalTargetLayer(roi_sampler_cfg=self.model_cfg.TARGET_CONFIG)
-b. build_losses(self.model_cfg.LOSS_CONFIG)
+  **Tasks**
+  
+  a. Create a target assigner or in fact ProposalTargetLayer(roi_sampler_cfg=self.model_cfg.TARGET_CONFIG)
+  
+  b. build_losses(self.model_cfg.LOSS_CONFIG)
 
 2. PartA2FCHead(RoIHeadTemplate)
 
 3. PVRCNNHead(RoIHeadTemplate)
 
-**Tasks**
-a. self.roi_grid_pool_layer = pointnet2_stack_modules.StackSAModuleMSG(
+  **Tasks**
+  
+  a. self.roi_grid_pool_layer = pointnet2_stack_modules.StackSAModuleMSG(
             radii=self.model_cfg.ROI_GRID_POOL.POOL_RADIUS,
             nsamples=self.model_cfg.ROI_GRID_POOL.NSAMPLE,
             mlps=mlps,
