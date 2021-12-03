@@ -59,12 +59,15 @@ Related papers:
 ## ROI Head
 **Related classes:**
 1. RoIHeadTemplate(nn.Module)
+
 **Tasks**
 a. Create a target assigner or in fact ProposalTargetLayer(roi_sampler_cfg=self.model_cfg.TARGET_CONFIG)
 b. build_losses(self.model_cfg.LOSS_CONFIG)
 
-3. PartA2FCHead(RoIHeadTemplate)
-4. PVRCNNHead(RoIHeadTemplate)
+2. PartA2FCHead(RoIHeadTemplate)
+
+3. PVRCNNHead(RoIHeadTemplate)
+
 **Tasks**
 a. self.roi_grid_pool_layer = pointnet2_stack_modules.StackSAModuleMSG(
             radii=self.model_cfg.ROI_GRID_POOL.POOL_RADIUS,
@@ -82,7 +85,7 @@ a. self.roi_grid_pool_layer = pointnet2_stack_modules.StackSAModuleMSG(
 ### PointNet2 modules
 **Related Classes: **
 1. StackSAModuleMSG(nn.Module)
-__init__(self, *, radii: List[float], nsamples: List[int], mlps: List[List[int]],
+* __init__(self, *, radii: List[float], nsamples: List[int], mlps: List[List[int]],
                  use_xyz: bool = True, pool_method='max_pool')
 
 **PointNet2 Utils:** 
