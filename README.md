@@ -20,7 +20,8 @@ a. DataProcessor(object): transform_points_to_voxels using VoxelGeneratorV2 clas
 1- MeanVFE().forward: Clamp and compute mean of points in each voxel-> voxel_features
 
 2- VoxelBackBone8x: take voxel features and return encoded_spconv_tensor:
-``` batch_dict.update({
+``` 
+   batch_dict.update({
             'encoded_spconv_tensor': out,
             'encoded_spconv_tensor_stride': 8
         })
