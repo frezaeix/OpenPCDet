@@ -17,6 +17,7 @@ Explaining different components of OpenPCDet based on its design pattern
 **Related classes:**
 1. AnchorHeadTemplate(nn.Module)
 * __init__(self, model_cfg, num_class, class_names, grid_size, point_cloud_range, predict_boxes_when_training)
+  
   **Example for model_cfg for pvrcnn:**
   {'NAME': 'AnchorHeadSingle', 'CLASS_AGNOSTIC': False, 'USE_DIRECTION_CLASSIFIER': True, 'DIR_OFFSET': 0.78539, 'DIR_LIMIT_OFFSET': 0.0, 'NUM_DIR_BINS': 2,  
    'ANCHOR_GENERATOR_CONFIG': [{'class_name': 'car', 'anchor_sizes': [[4.2, 2.0, 1.6]], 'anchor_rotations': [0, 1.57], 'anchor_bottom_heights': [0],     
