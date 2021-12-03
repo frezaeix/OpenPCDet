@@ -37,6 +37,7 @@ Explaining different components of OpenPCDet based on its design pattern
     'LOSS_CONFIG': {'CLS_LOSS': 'BinaryCrossEntropy', 'REG_LOSS': 'smooth-l1', 'CORNER_LOSS_REGULARIZATION': True, 
    'LOSS_WEIGHTS': {'rcnn_cls_weight': 1.0,  'rcnn_reg_weight': 1.0, 'rcnn_corner_weight': 1.0, 'code_weights': [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]}}
   } # End of example
+  
   **Tasks**
   a. Generate anchors
   b. Create target_assigner (AxisAlignedTargetAssigner or ATSSTargetAssigner-> Reference: https://arxiv.org/abs/1912.02424)
