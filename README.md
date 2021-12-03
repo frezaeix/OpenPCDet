@@ -46,18 +46,22 @@ Explaining different components of OpenPCDet based on its design pattern
   
   c. build_losses
   
-3. AnchorHeadSingle(AnchorHeadTemplate)
-4. PointIntraPartOffsetHead(PointHeadTemplate): 
- 
+2. AnchorHeadSingle(AnchorHeadTemplate)
 
-6. PointHeadSimple(PointHeadTemplate): A simple point-based segmentation head, which are used for PV-RCNN keypoint segmentaion.
+3. PointIntraPartOffsetHead(PointHeadTemplate):  
+
+4. PointHeadSimple(PointHeadTemplate): A simple point-based segmentation head, which are used for PV-RCNN keypoint segmentaion.
     Reference Paper: https://arxiv.org/abs/1912.13192
     PV-RCNN: Point-Voxel Feature Set Abstraction for 3D Object Detection.
     
-7. AnchorHeadMulti(AnchorHeadTemplate)
-8. PointHeadTemplate(nn.Module)
-9. 
-Related papers:
+5. AnchorHeadMulti(AnchorHeadTemplate)
+
+6. PointHeadTemplate(nn.Module):
+  
+  **Tasks**
+  
+  a.build_losses(self.model_cfg.LOSS_CONFIG)
+
 
 ## ROI Head
 **Related classes:**
