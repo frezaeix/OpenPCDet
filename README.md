@@ -11,7 +11,16 @@ Based on the image:
 **Related classes:**
 1. Point Feature Encoding (PFE). VoxelSetAbstraction(nn.Module):
  *  It contains StackSAModuleMSG(nn.Module) modules.
-2. Voxel Feature Encoding (VFE)
+
+2. Voxel Feature Encoding (VFE). 
+    
+    a. VFETemplate(nn.Module)
+    
+    b. MeanVFE(VFETemplate)
+    
+    c. PillarVFE(VFETemplate)
+
+3. VoxelBackBone8x(nn.Module)
 
 ## Backbone 2D
 **Related classes:**
