@@ -1,3 +1,7 @@
+# My own Readme, explaining different components of OpenPCDet based on its design pattern
+
+# Original Readme by the authors of OpenPCDet
+
 <img src="docs/open_mmlab.png" align="right" width="30%">
 
 # OpenPCDet
