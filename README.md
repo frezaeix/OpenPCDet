@@ -38,6 +38,12 @@ a. DataProcessor(object): transform_points_to_voxels using VoxelGeneratorV2 clas
             }
         })
 ```
+3- Map to BEV: HeightCompression:takes batch_dict['encoded_spconv_tensor'] and return spatial_features
+``` 
+
+``` 
+
+
 
 ## Backbone 3D
 **Related classes:**
