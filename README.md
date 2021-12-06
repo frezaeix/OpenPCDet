@@ -47,7 +47,7 @@ spatial_features = spatial_features.view(N, C * D, H, W)
 batch_dict['spatial_features'] = spatial_features
 batch_dict['spatial_features_stride'] = batch_dict['encoded_spconv_tensor_stride']
 ``` 
-
+4- Voxel Set Abstraction(VSA):
 
 
 ## Backbone 3D
