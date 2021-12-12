@@ -47,7 +47,17 @@ spatial_features = spatial_features.view(N, C * D, H, W)
 batch_dict['spatial_features'] = spatial_features
 batch_dict['spatial_features_stride'] = batch_dict['encoded_spconv_tensor_stride']
 ``` 
-4- Voxel Set Abstraction(VSA):
+4- Voxel Set Abstraction(VSA): VoxelSetAbstraction(nn.Module):
+   a. Sample points from raw point cloud using FPS
+   b. point_bev_features = self.interpolate_from_bev_features using keypoints and spatial features
+   c. StackSAModuleMSG(nn.Module): similar to class PointnetSAModuleMSG class in pointnet2 code. there is a pooling here. It takes rawpoints and applies QueryAndGroup, mlps and pooling n times. It returns new_xyz, new_features. (new_xyz: sampled points or keypoints.)
+   d. StackSAModuleMSG(nn.Module): this time it takes multi_scale_3d_features and applies QueryAndGroup, mlps and pooling n times.
+   e. Concat the resutls from c and d.
+   f. Applies self.vsa_point_feature_fusion (a linear, bn and relu) on the features from prev step.
+   g. It Returns features from step e and f.
+   
+5- BaseBEVBackbone(nn.Module):
+
 
 
 ## Backbone 3D
