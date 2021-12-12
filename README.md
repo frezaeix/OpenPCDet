@@ -17,9 +17,9 @@ a. DataProcessor(object): transform_points_to_voxels using VoxelGeneratorV2 clas
     * num_points_per_voxel: [M] int32 tensor.
 
 
-1- MeanVFE().forward: Clamp and compute mean of points in each voxel-> voxel_features
+1- VFE step: MeanVFE().forward: Clamp and compute mean of points in each voxel-> voxel_features
 
-2- VoxelBackBone8x: take voxel features and return encoded_spconv_tensor:
+2- 3D SparseConv step: VoxelBackBone8x: take voxel features and return encoded_spconv_tensor:
 ``` 
    # for detection head
         # [200, 176, 5] -> [200, 176, 2]
@@ -47,7 +47,7 @@ spatial_features = spatial_features.view(N, C * D, H, W)
 batch_dict['spatial_features'] = spatial_features
 batch_dict['spatial_features_stride'] = batch_dict['encoded_spconv_tensor_stride']
 ``` 
-4- Voxel Set Abstraction(VSA): VoxelSetAbstraction(nn.Module):
+4- VSA step: Voxel Set Abstraction(VSA): VoxelSetAbstraction(nn.Module):
    
    a. Sample points from raw point cloud using FPS
    
@@ -63,7 +63,9 @@ batch_dict['spatial_features_stride'] = batch_dict['encoded_spconv_tensor_stride
    
    g. It Returns features from step e and f.
    
-5- BaseBEVBackbone(nn.Module):
+5- Reshape to BEV step: BaseBEVBackbone(nn.Module): 
+
+   a. It takes spatial features from step number 3 ... 
 
 
 
