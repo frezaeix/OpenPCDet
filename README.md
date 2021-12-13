@@ -66,6 +66,25 @@ batch_dict['spatial_features_stride'] = batch_dict['encoded_spconv_tensor_stride
 5- Reshape to BEV step: BaseBEVBackbone(nn.Module): 
 
    a. It takes spatial features from step number 3 ... 
+   
+6- RPN Head step: AnchorHeadSingle(AnchorHeadTemplate):
+   
+   a. It takes spatial_features_2d from step 5 and produces cls, dir, and box predictions
+   b. It returns 
+
+```
+            data_dict['batch_cls_preds'] = batch_cls_preds
+            data_dict['batch_box_preds'] = batch_box_preds
+            data_dict['cls_preds_normalized'] = False
+```
+  
+7- PointHeadSimple(PointHeadTemplate):
+   
+   a. It takes point_features_before_fusion or point_features from step 4 and produces classification scores.
+
+8- ROI Head step: PVRCNNHead(RoIHeadTemplate):
+
+   a. It applies proposal layer
 
 
 
