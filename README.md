@@ -61,8 +61,8 @@ batch_dict['spatial_features_stride'] = batch_dict['encoded_spconv_tensor_stride
    b. Stores interpolated bev features at keypoints. point_bev_features = self.interpolate_from_bev_features using keypoints and batch_dict['spatial_features'] **(why?)** It estimates the feature map value for the given keypoints (x,y) pairs
    
    c. It applies set abstraction module on top of rawpoints using keypoints and stores these new features. There is a pooling module at the end.
-      * StackSAModuleMSG(nn.Module): similar to class PointnetSAModuleMSG class in pointnet2 code. there is a pooling here. It takes rawpoints and keypoints then it applies QueryAndGroup, mlps and pooling n times. It returns new_xyz, new_features. (new_xyz: sampled points or keypoints.) **(how does pooling work?)**
-      * check [this link](https://github.com/frezaeix/Pointnet2_PyTorch#readme) for understanding this module
+   * StackSAModuleMSG(nn.Module): similar to class PointnetSAModuleMSG class in pointnet2 code. there is a pooling here. It takes rawpoints and keypoints then it applies QueryAndGroup, mlps and pooling n times. It returns new_xyz, new_features. (new_xyz: sampled points or keypoints.)**(how does pooling work?)** 
+   * check [this link](https://github.com/frezaeix/Pointnet2_PyTorch#readme) for understanding this module
    
    d. StackSAModuleMSG(nn.Module): this time it takes multi_scale_3d_features and applies QueryAndGroup, mlps and pooling n times then stores these features.
    
