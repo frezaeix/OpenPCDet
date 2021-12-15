@@ -21,7 +21,8 @@ a. DataProcessor(object): transform_points_to_voxels using VoxelGeneratorV2 clas
 * Visualization example: before vs after
 
 2- 3D SparseConv step: VoxelBackBone8x: takes voxel_features and voxel_coords from step 1. It applies series of sparse conv and returns encoded_spconv_tensor:
-* Visualize each step. What does exaxtly spareconv do? [This link](https://rancheng.github.io/Sparse-Convolution-Explained/) might be helpful.
+* Visualize each step. 
+* What does exactly spareconv do? [This link](https://rancheng.github.io/Sparse-Convolution-Explained/) might be helpful.
 ``` 
    # for detection head
         # [200, 176, 5] -> [200, 176, 2]
@@ -55,19 +56,27 @@ batch_dict['spatial_features_stride'] = batch_dict['encoded_spconv_tensor_stride
 ``` 
 4- VSA step: Voxel Set Abstraction(VSA): VoxelSetAbstraction(nn.Module):
    
-   a. Sample points from raw point cloud using FPS
+   a. Sample points from raw point cloud using FPS -> keypoints
    
-   b. point_bev_features = self.interpolate_from_bev_features using keypoints and spatial features **(?)**
+   b. Stores interpolated bev features at keypoints. point_bev_features = self.interpolate_from_bev_features using keypoints and batch_dict['spatial_features'] **(why?)** It estimates the feature map value for the given keypoints (x,y) pairs
    
-   c. StackSAModuleMSG(nn.Module): similar to class PointnetSAModuleMSG class in pointnet2 code. there is a pooling here. It takes rawpoints and applies QueryAndGroup, mlps and pooling n times. It returns new_xyz, new_features. (new_xyz: sampled points or keypoints.) **(how does pooling work?)**
+   c. It applies set abstraction module on top of rawpoints using keypoints and stores these new features. There is a pooling module at the end.
+      * StackSAModuleMSG(nn.Module): similar to class PointnetSAModuleMSG class in pointnet2 code. there is a pooling here. It takes rawpoints and keypoints then it applies QueryAndGroup, mlps and pooling n times. It returns new_xyz, new_features. (new_xyz: sampled points or keypoints.) **(how does pooling work?)**
+      * check [this link](https://github.com/frezaeix/Pointnet2_PyTorch#readme) for understanding this module
    
-   d. StackSAModuleMSG(nn.Module): this time it takes multi_scale_3d_features and applies QueryAndGroup, mlps and pooling n times.
+   d. StackSAModuleMSG(nn.Module): this time it takes multi_scale_3d_features and applies QueryAndGroup, mlps and pooling n times then stores these features.
    
-   e. Concat the resutls from c and d.
+   e. Concat the resutls from b, c and d.
    
    f. Applies **self.vsa_point_feature_fusion** (a linear, bn and relu) on the features from prev step.
    
    g. It Returns features from step e and f.
+```
+      batch_dict['point_features_before_fusion'] = point_features.view(-1, point_features.shape[-1])
+      point_features = self.vsa_point_feature_fusion(point_features.view(-1, point_features.shape[-1]))
+      batch_dict['point_features'] = point_features  # (BxN, C)
+      batch_dict['point_coords'] = point_coords  # (BxN, 4)
+```
    
 5- Reshape to BEV step: BaseBEVBackbone(nn.Module): 
 
