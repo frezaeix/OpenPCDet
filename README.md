@@ -17,9 +17,11 @@ a. DataProcessor(object): transform_points_to_voxels using VoxelGeneratorV2 clas
     * num_points_per_voxel: [M] int32 tensor.
 
 
-1- VFE step: MeanVFE().forward: Clamp and compute mean of points in each voxel-> voxel_features
+1- VFE step: MeanVFE().forward: Compute **mean of points** in each voxel-> voxel_features
+* Visualization example: before vs after
 
-2- 3D SparseConv step: VoxelBackBone8x: take voxel features and return encoded_spconv_tensor:
+2- 3D SparseConv step: VoxelBackBone8x: takes voxel_features and voxel_coords from step 1. It applies series of sparse conv and returns encoded_spconv_tensor:
+* Visualize each step. What does exaxtly spareconv do? [This link](https://rancheng.github.io/Sparse-Convolution-Explained/) might be helpful.
 ``` 
    # for detection head
         # [200, 176, 5] -> [200, 176, 2]
@@ -38,7 +40,11 @@ a. DataProcessor(object): transform_points_to_voxels using VoxelGeneratorV2 clas
             }
         })
 ```
-3- Map to BEV: HeightCompression:takes batch_dict['encoded_spconv_tensor'] and return spatial_features
+* some questions:
+   * what are SubMConv3d and SparseConv3d?
+
+
+3- Map to BEV: HeightCompression:takes batch_dict['encoded_spconv_tensor'] from step 2 and return spatial_features (It stacks 3D feature volume along Z axis).
 ``` 
 encoded_spconv_tensor = batch_dict['encoded_spconv_tensor']
 spatial_features = encoded_spconv_tensor.dense()
@@ -51,15 +57,15 @@ batch_dict['spatial_features_stride'] = batch_dict['encoded_spconv_tensor_stride
    
    a. Sample points from raw point cloud using FPS
    
-   b. point_bev_features = self.interpolate_from_bev_features using keypoints and spatial features
+   b. point_bev_features = self.interpolate_from_bev_features using keypoints and spatial features **(?)**
    
-   c. StackSAModuleMSG(nn.Module): similar to class PointnetSAModuleMSG class in pointnet2 code. there is a pooling here. It takes rawpoints and applies QueryAndGroup, mlps and pooling n times. It returns new_xyz, new_features. (new_xyz: sampled points or keypoints.)
+   c. StackSAModuleMSG(nn.Module): similar to class PointnetSAModuleMSG class in pointnet2 code. there is a pooling here. It takes rawpoints and applies QueryAndGroup, mlps and pooling n times. It returns new_xyz, new_features. (new_xyz: sampled points or keypoints.) **(how does pooling work?)**
    
    d. StackSAModuleMSG(nn.Module): this time it takes multi_scale_3d_features and applies QueryAndGroup, mlps and pooling n times.
    
    e. Concat the resutls from c and d.
    
-   f. Applies self.vsa_point_feature_fusion (a linear, bn and relu) on the features from prev step.
+   f. Applies **self.vsa_point_feature_fusion** (a linear, bn and relu) on the features from prev step.
    
    g. It Returns features from step e and f.
    
