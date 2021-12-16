@@ -127,7 +127,9 @@ PVRCNNHead(
 ```
 
    a. It applies proposal layer:
+   
    b. Then it applies roi_grid_pool_layer:
+   
    c. Finally it applies cls_layers and reg_layers.
 
 
