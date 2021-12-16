@@ -80,9 +80,20 @@ batch_dict['spatial_features_stride'] = batch_dict['encoded_spconv_tensor_stride
    
 5- Reshape to BEV step: BaseBEVBackbone(nn.Module): 
 
-   a. It takes spatial features from step number 3 ... 
+   a. It takes spatial features from step number 3 then applies some conv+bn+relu and conv transpose+bn+relu. It return these features as data_dict['spatial_features_2d'].
    
 6- RPN Head step: AnchorHeadSingle(AnchorHeadTemplate):
+
+```
+AnchorHeadSingle(
+  (cls_loss_func): SigmoidFocalClassificationLoss()
+  (reg_loss_func): WeightedSmoothL1Loss()
+  (dir_loss_func): WeightedCrossEntropyLoss()
+  (conv_cls): Conv2d(512, 18, kernel_size=(1, 1), stride=(1, 1))
+  (conv_box): Conv2d(512, 42, kernel_size=(1, 1), stride=(1, 1))
+  (conv_dir_cls): Conv2d(512, 12, kernel_size=(1, 1), stride=(1, 1))
+)
+```
    
    a. It takes spatial_features_2d from step 5 and produces cls, dir, and box predictions
    b. It returns 
