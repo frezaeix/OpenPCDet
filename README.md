@@ -82,16 +82,16 @@ batch_dict['spatial_features_stride'] = batch_dict['encoded_spconv_tensor_stride
 
    a. It takes spatial features from step number 3 then applies some conv+bn+relu and conv transpose+bn+relu. It return these features as data_dict['spatial_features_2d'].
    
-6- RPN Head step: AnchorHeadSingle(AnchorHeadTemplate):
+6- RPN Head (DenseHead) step: AnchorHeadSingle(AnchorHeadTemplate):
 
 ```
 AnchorHeadSingle(
   (cls_loss_func): SigmoidFocalClassificationLoss()
   (reg_loss_func): WeightedSmoothL1Loss()
   (dir_loss_func): WeightedCrossEntropyLoss()
-  (conv_cls): Conv2d(512, 18, kernel_size=(1, 1), stride=(1, 1))
-  (conv_box): Conv2d(512, 42, kernel_size=(1, 1), stride=(1, 1))
-  (conv_dir_cls): Conv2d(512, 12, kernel_size=(1, 1), stride=(1, 1))
+  (conv_cls): Conv2d(512, 18, kernel_size=(1, 1), stride=(1, 1))  ## 18 = 6 anchors per location x 3 classes
+  (conv_box): Conv2d(512, 42, kernel_size=(1, 1), stride=(1, 1))  ## 42 = 6 anchors x 7: x y z l w h theta
+  (conv_dir_cls): Conv2d(512, 12, kernel_size=(1, 1), stride=(1, 1)) ## 6 anchors x 2 NUM_DIR_BINS
 )
 ```
    
@@ -104,13 +104,31 @@ AnchorHeadSingle(
             data_dict['cls_preds_normalized'] = False
 ```
   
-7- PointHeadSimple(PointHeadTemplate):
+7- Point Head (DenseHead) step: PointHeadSimple(PointHeadTemplate):
    
    a. It takes point_features_before_fusion or point_features from step 4 and produces classification scores.
 
 8- ROI Head step: PVRCNNHead(RoIHeadTemplate):
 
-   a. It applies proposal layer
+```
+PVRCNNHead(
+  (proposal_target_layer): ProposalTargetLayer()
+  (reg_loss_func): WeightedSmoothL1Loss()
+  (roi_grid_pool_layer): StackSAModuleMSG(
+    (groupers): ModuleList(
+      (0): QueryAndGroup()
+      (1): QueryAndGroup()
+    )
+    (mlps): ModuleList(....)
+  (shared_fc_layer): Sequential(...)
+  (cls_layers): Sequential(...)
+  (reg_layers): Sequential(...)
+)
+```
+
+   a. It applies proposal layer:
+   b. Then it applies roi_grid_pool_layer:
+   c. Finally it applies cls_layers and reg_layers.
 
 
 
