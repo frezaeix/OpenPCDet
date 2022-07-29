@@ -110,12 +110,6 @@ AnchorHeadSingle(
 
 8- ROI Head step: PVRCNNHead(RoIHeadTemplate):
    
-   a. proposal_layer(self, batch_dict,  nms_config): 
-   
-```diff
-- Its task is ...
-```
-   
 ```   
 PVRCNNHead(
   (proposal_target_layer): ProposalTargetLayer()
@@ -138,6 +132,11 @@ PVRCNNHead(
    
    c. Finally it applies cls_layers and reg_layers.
 
+   Inside PVRCNNHead: RoIHeadTemplate-> proposal_layer(self, batch_dict,  nms_config): 
+   
+```diff
+- Its task is ...
+```
 
 
 ## Backbone 3D
