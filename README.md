@@ -110,8 +110,10 @@ AnchorHeadSingle(
 
 8- ROI Head step: PVRCNNHead(RoIHeadTemplate):
    
-   a. proposal_layer(self, batch_dict,  nms_config): ```diff
-- Its task is ... ```
+   a. proposal_layer(self, batch_dict,  nms_config): 
+```diff
+- Its task is ... 
+```
 
 ```
 PVRCNNHead(
