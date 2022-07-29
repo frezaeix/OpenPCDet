@@ -135,7 +135,7 @@ PVRCNNHead(
    Inside PVRCNNHead: RoIHeadTemplate-> proposal_layer(self, batch_dict,  nms_config): 
    
 ```diff
-- Its task is to run nms on the proposals.
+- Its task is to run nms on the proposals. It is class agnostics and multi class version is not implemented.
 ```
 
    Inside PVRCNNHead: RoIHeadTemplate-> ProposalTargetLayer(nn.Module): 
