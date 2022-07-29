@@ -110,8 +110,13 @@ AnchorHeadSingle(
 
 8- ROI Head step: PVRCNNHead(RoIHeadTemplate):
    
-   a. proposal_layer(self, batch_dict,  nms_config): $$\textcolor{red}{\text{Its task is ...}}$$
+   a. proposal_layer(self, batch_dict,  nms_config): 
    
+```diff
+- Its task is ...
+```
+   
+```   
 PVRCNNHead(
   (proposal_target_layer): ProposalTargetLayer()
   (reg_loss_func): WeightedSmoothL1Loss()
