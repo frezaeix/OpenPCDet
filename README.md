@@ -109,6 +109,7 @@ AnchorHeadSingle(
    a. It takes point_features_before_fusion or point_features from step 4 and produces classification scores.
 
 8- ROI Head step: PVRCNNHead(RoIHeadTemplate):
+   a- proposal_layer(self, batch_dict,  nms_config): <font color="red"> Its task is ... </font>
 
 ```
 PVRCNNHead(
