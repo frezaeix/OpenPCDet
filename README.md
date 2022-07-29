@@ -135,7 +135,7 @@ PVRCNNHead(
    Inside PVRCNNHead: RoIHeadTemplate-> proposal_layer(self, batch_dict,  nms_config): 
    
 ```diff
-- Its task is ...
+- Its task is to run nms on the proposals.
 ```
 
    Inside PVRCNNHead: RoIHeadTemplate-> ProposalTargetLayer(nn.Module): 
