@@ -138,6 +138,11 @@ PVRCNNHead(
 - Its task is ...
 ```
 
+   Inside PVRCNNHead: RoIHeadTemplate-> ProposalTargetLayer(nn.Module): 
+   
+```diff
+- Its task is ...
+```
 
 ## Backbone 3D
 **Related classes:**
