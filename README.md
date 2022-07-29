@@ -110,7 +110,7 @@ AnchorHeadSingle(
 
 8- ROI Head step: PVRCNNHead(RoIHeadTemplate):
    
-   a. proposal_layer(self, batch_dict,  nms_config): -Its task is ...- 
+   a. proposal_layer(self, batch_dict,  nms_config): $$\textcolor{red}{\text{Its task is ...}}$$
    
 PVRCNNHead(
   (proposal_target_layer): ProposalTargetLayer()
